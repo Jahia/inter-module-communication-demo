@@ -90,7 +90,6 @@
                     <instructions>
                         <Jahia-Depends>default</Jahia-Depends>
                         <Export-Package>org.jahia.demo.service.api</Export-Package>
-                        <_dsannotations>org.jahia.demo.service.MailWrapperServiceImpl</_dsannotations>
                     </instructions>
                 </configuration>
             </plugin>

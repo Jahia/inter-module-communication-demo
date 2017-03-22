@@ -1,30 +1,38 @@
 package org.jahia.demo.service;
 
-import org.jahia.bin.Action;
-import org.jahia.bin.Jahia;
+import org.jahia.demo.service.api.MailWrapperReplacer;
 import org.jahia.demo.service.api.MailWrapperService;
 import org.jahia.services.mail.MailService;
-import org.osgi.framework.Constants;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.Reference;
 
-@Component(name = "org.jahia.demo.mailWrapper", service = MailWrapperService.class, property = {
-        Constants.SERVICE_PID + "=org.jahia.demo.mailWrapper",
-        Constants.SERVICE_DESCRIPTION + "=Wrap and Send mail",
-        Constants.SERVICE_VENDOR + "=" + Jahia.VENDOR_NAME}, immediate = true)
+import java.util.List;
+
 public class MailWrapperServiceImpl implements MailWrapperService{
 
     private MailService mailService;
+    private List<MailWrapperReplacer> replacers;
 
-    @Reference(service = MailService.class)
-    protected void bindMailService(MailService mailService) {
+    public void setMailService(MailService mailService) {
         this.mailService = mailService;
+    }
+
+    public void setReplacers(List<MailWrapperReplacer> replacers) {
+        this.replacers = replacers;
     }
 
     @Override
     public void wrapAndSendMessage(String message) {
-        mailService.sendHtmlMessage("kevan@jahia.com", "kevan@jahia.com", null, null, "Wrapped mail", wrapMessage(message));
+        String finalMessage = message;
+
+        if(replacers != null && !replacers.isEmpty()) {
+            for (MailWrapperReplacer replacer : replacers) {
+                finalMessage = replacer.replaceInMessage(finalMessage);
+            }
+        }
+
+        mailService.sendHtmlMessage("kevan@jahia.com", "kevan@jahia.com", null, null, "Wrapped mail", wrapMessage(finalMessage));
     }
+
+
 
     /**
      * Ugly fct to wrap the message with a beautiful mail template
