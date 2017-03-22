@@ -44,59 +44,64 @@
         please contact the sales department at sales@jahia.com.
 
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <artifactId>inter-module-communication</artifactId>
-        <groupId>org.jahia.demo</groupId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-    <artifactId>mail-form</artifactId>
-    <name>mail form</name>
-    <version>1.0-SNAPSHOT</version>    
-    <packaging>bundle</packaging>
-    <description>This is the custom module (mail form) for running on a Digital Experience Manager server.</description>
-
-    <scm>
-        <connection>scm:git:git@github.com:Jahia/inter-module-communication-demo.git</connection>
-        <developerConnection>scm:git:git@github.com:Jahia/inter-module-communication-demo.git</developerConnection>
-        <url>https://github.com/Jahia/inter-module-communication-demo</url>
-        <tag>HEAD</tag>
-    </scm>
-
-    <repositories>
-        <repository>
-            <id>jahia-public</id>
-            <name>Jahia Public Repository</name>
-            <url>https://devtools.jahia.com/nexus/content/groups/public</url>
-            <releases>
-                <enabled>true</enabled>
-                <updatePolicy>never</updatePolicy>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <extensions>true</extensions>
-                <configuration>
-                    <instructions>
-                        <Jahia-Depends>default</Jahia-Depends>
-                        <_dsannotations>
-                            org.jahia.demo.action.SendMailAction
-                        </_dsannotations>
-                    </instructions>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.jahia.demo</groupId>
+    <artifactId>inter-module-communication</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+  <artifactId>mail-form</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>bundle</packaging>
+  <name>mail form</name>
+  <description>This is the custom module (mail form) for running on a Digital Experience Manager server.</description>
+  <scm>
+    <connection>scm:git:git@github.com:Jahia/inter-module-communication-demo.git</connection>
+    <developerConnection>scm:git:git@github.com:Jahia/inter-module-communication-demo.git</developerConnection>
+    <url>https://github.com/Jahia/inter-module-communication-demo</url>
+  </scm>
+  <properties>
+    <jahia-depends>default,mail-wrapper</jahia-depends>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>org.jahia.demo</groupId>
+      <artifactId>mail-wrapper</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <scope>provided</scope>
+    </dependency>
+  </dependencies>
+  <repositories>
+    <repository>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <id>jahia-public</id>
+      <name>Jahia Public Repository</name>
+      <url>https://devtools.jahia.com/nexus/content/groups/public</url>
+    </repository>
+  </repositories>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <_dsannotations>
+              org.jahia.demo.action.SendMailAction,
+              org.jahia.demo.action.SendWrappedMailAction
+            </_dsannotations>
+          </instructions>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>

@@ -3,3 +3,5 @@
 
 [jnt:mailForm] > jnt:content, jmix:formContent
 
+[jnt:wrappedMailForm] > jnt:content, jmix:formContent
+
