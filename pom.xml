@@ -23,6 +23,8 @@
     <modules>
         <module>mail-form</module>
         <module>mail-wrapper</module>
+        <module>mail-replacer-current-user</module>
+        <module>mail-replacer-current-date</module>
   </modules>
 
 </project>
