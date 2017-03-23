@@ -29,7 +29,7 @@ public class MailWrapperServiceImpl implements MailWrapperService{
             }
         }
 
-        mailService.sendHtmlMessage("kevan@jahia.com", "kevan@jahia.com", null, null, "Wrapped mail", wrapMessage(finalMessage));
+        mailService.sendHtmlMessage("kevan@jahia.com", "intermodule_jahia_meetup@yopmail.com", null, null, "Wrapped mail", wrapMessage(finalMessage));
     }
 
 
